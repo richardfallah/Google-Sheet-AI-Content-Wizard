@@ -1,10 +1,28 @@
-# Google-Sheet-AI-Content-Wizard
+
+
+
+
+
+Google Sheet AI Content Wizard Installation Guide
+
 Generate personalized email openers, subject lines, SMS and cold calling script, for each of your lead, using AI.
+Basic and FREE alternative to Clay tables. 
+
+
+
+
+
+
+
+
+
+
 The code and content are sponsored by VBOUT and Openbuild AI.
 VBOUT is the industry leading platform for Email Marketing, Automation and AI chatbots. With over 14 marketing tools combined, marketers can generate leads, nurture them using automation and retain relationships with paid customer, all from one dashboard.
 For a comprehensive demo of VBOUT, visit https://www.vbout.com .
 
-
+Video Tutorial:
+Sample File (requires APPSCRIPT Installation)
 This guide will walk you through the process of installing and using the provided Google Apps Script to generate email openers, cold calling scripts, SMS copy, and website analysis with outreach suggestions. This enhanced version includes support for different OpenAI models and clarifies column usage.
 Prerequisites
 •	Google Account: You'll need a Google account to access Google Sheets and Apps Script.
@@ -73,3 +91,5 @@ Important Notes
 This comprehensive guide should help you effectively install and utilize the script for generating sales content and analyzing websites.
 
 You have full license to use the script on your own Google Sheets accounts, for personal or commercial use. The finished code is proprietary of VBOUT and any distribution must be credited back to the original author.
+
+

@@ -1,0 +1,317 @@
+//Written by Richard Fallah from Openbuild.ai and Vbout.com, with the help of Gemini and Google Sheets - Replace with your actual API key from OpenAI
+//Email openers with subject lines starts at line 6 with the function generateEmailOpeners()
+//Cold calling scripts starts at line 106 with the function generateColdCallingScripts()
+//SMS copy starts at line 177 with the function generateSmsCopy()
+//Website scraping and copy starts at line 253 with the function analyzeWebsiteAndSuggestOutreach()
+
+//Personalized Email openers with subject lines starts here
+function generateEmailOpeners() {
+  // Get your OpenAI API key  
+  var apiKey = 'YOUR_API_KEY_HERE'; // Replace with your actual API key
+
+  // Get the active spreadsheet and sheet  
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getActiveSheet();
+
+  // Get the last row with content in the sheet  
+  var lastRow = sheet.getLastRow();
+
+  // Loop through each row, starting from row 2 (index 1)  
+  for (var i = 1; i < lastRow; i++) { 
+
+    // Get all values in the current row  
+    var rowValues = sheet.getRange(i + 1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+    // Check if the entire row is empty  
+    if (rowValues.every(function (value) { return value === ""; })) {
+      break; // Exit the loop if the row is empty  
+    }
+
+    var seoDescription = sheet.getRange('L' + (i + 1)).getValue();
+    var industry = sheet.getRange('J' + (i + 1)).getValue();
+
+    // Use SEO description if available, otherwise use industry,   
+    // or fall back to a generic topic if both are empty  
+    var topic = seoDescription
+      ? seoDescription
+      : (industry
+        ? industry
+        : "your business"); // Generic fall back topic
+
+    // Construct the prompt for the email opener with explicit instruction to NOT include a subject line  
+    var promptOpener = `Generate a two-line email opener with soft humor to break the ice and establish a connection with the reader. 
+                         I am cold emailing this person to offer them a free email marketing audit.
+                         The opener should be related to ${topic} but avoid any personalization, greetings (like 'Hello there'), generic phrases like 'I hope this email finds you well', and **DO NOT include a subject line**.`;
+
+    // Make the API request to OpenAI for the opener  
+    var responseOpener = UrlFetchApp.fetch('https://api.openai.com/v1/chat/completions', {
+      'method': 'post',
+      'contentType': 'application/json',
+      'headers': {
+        'Authorization': 'Bearer ' + apiKey
+      },
+      'payload': JSON.stringify({
+        'model': 'gpt-3.5-turbo', // Updated to GPT-3.5-Turbo
+        'messages': [{ "role": "user", "content": promptOpener }],
+        'max_tokens': 100,
+        'temperature': 0.8
+      })
+    });
+
+    // Parse the response and get the email opener  
+    var dataOpener = JSON.parse(responseOpener.getContentText());
+    var emailOpener = dataOpener.choices[0].message.content.trim();
+
+    // Write the email opener to column P 
+    sheet.getRange(i + 1, 16).setValue(emailOpener); 
+
+    // Construct the prompt for the subject line with instruction to NOT include quotes  
+    var promptSubject = `Generate a concise and engaging email subject line related to ${topic}. 
+                          Include an emoji and positive keywords. 
+                          Keep it under 8 words, ensure it is different from previous subject lines, and **DO NOT include any quotes**.
+                          I am offering a free email marketing audit.`;
+
+    // Make the API request to OpenAI for the subject line  
+    var responseSubject = UrlFetchApp.fetch('https://api.openai.com/v1/chat/completions', {
+      'method': 'post',
+      'contentType': 'application/json',
+      'headers': {
+        'Authorization': 'Bearer ' + apiKey
+      },
+      'payload': JSON.stringify({
+        'model': 'gpt-3.5-turbo', // Updated to GPT-3.5-Turbo
+        'messages': [{ "role": "user", "content": promptSubject }],
+        'max_tokens': 60, 
+        'temperature': 0.9 
+      })
+    });
+
+    // Parse the response and get the subject line  
+    var dataSubject = JSON.parse(responseSubject.getContentText());
+    var subjectLine = dataSubject.choices[0].message.content.trim();
+
+    // Write the subject line to column Q  
+    sheet.getRange(i + 1, 17).setValue(subjectLine);
+  }
+}
+
+function onOpen() {
+  var ui = SpreadsheetApp.getUi();
+  ui.createMenu('Custom Menu')
+    .addItem('Generate Email Openers', 'generateEmailOpeners')
+    .addToUi();
+}
+
+
+//Personalized cold calling scripts starts here
+
+function generateColdCallingScripts() {
+    // Get your OpenAI API key
+    var apiKey = 'YOUR_API_KEY_HERE'; // Replace with your actual API key
+  
+    // Get the active spreadsheet and sheet
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getActiveSheet();
+  
+    // Get the last row with content in the sheet
+    var lastRow = sheet.getLastRow();
+  
+    // Loop through each row, starting from row 2 (index 1)
+    for (var i = 1; i < lastRow; i++) {
+  
+      // Get all values in the current row
+      var rowValues = sheet.getRange(i + 1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  
+      // Check if the entire row is empty
+      if (rowValues.every(function (value) { return value === ""; })) {
+        break; // Exit the loop if the row is empty
+      }
+  
+      var seoDescription = sheet.getRange('L' + (i + 1)).getValue();
+      var industry = sheet.getRange('J' + (i + 1)).getValue();
+  
+      // Use SEO description if available, otherwise use industry,
+      // or fall back to a generic topic if both are empty
+      var topic = seoDescription
+        ? seoDescription
+        : (industry
+          ? industry
+          : "your business"); // Generic fall back topic
+  
+      // Construct the prompt for the cold calling script with explicit instruction to NOT include email subject lines
+      var promptScript = `Generate a personalized cold calling script for a business related to ${topic}. 
+                          The script should handle objections and be written in the tone of a professional BDR (Business Development Representative) 
+                          trying to set an appointment for a free email marketing audit. 
+                          The script should include:
+                          * An engaging opening line
+                          * A concise value proposition
+                          * Objection handling for common concerns (e.g., "I'm too busy," "We already have a solution")
+                          * A clear call to action to schedule a meeting.
+  
+                          DO NOT include any email subject lines in the cold calling script.`;
+  
+      // Make the API request to OpenAI for the cold calling script with increased max_tokens
+      var responseScript = UrlFetchApp.fetch('https://api.openai.com/v1/chat/completions', {
+        'method': 'post',
+        'contentType': 'application/json',
+        'headers': {
+          'Authorization': 'Bearer ' + apiKey
+        },
+        'payload': JSON.stringify({
+          'model': 'gpt-3.5-turbo', // Updated to GPT-3.5-Turbo
+          'messages': [{ "role": "user", "content": promptScript }],
+          'max_tokens': 500, // Increased to allow for longer scripts 
+          'temperature': 0.7
+        })
+      });
+  
+      // Parse the response and get the cold calling script
+      var dataScript = JSON.parse(responseScript.getContentText());
+      var coldCallingScript = dataScript.choices[0].message.content.trim();
+  
+      // Write the cold calling script to column R
+      sheet.getRange(i + 1, 18).setValue(coldCallingScript);
+    }
+  }
+
+  //Personalized SMS copy starts here
+function generateSmsCopy() {
+    // Get your OpenAI API key
+    var apiKey = 'YOUR_API_KEY_HERE'; // Replace with your actual API key
+  
+    // Get the active spreadsheet and sheet
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getActiveSheet();
+  
+    // Get the last row with content in the sheet
+    var lastRow = sheet.getLastRow();
+  
+    // Loop through each row, starting from row 2 (index 1)
+    for (var i = 1; i < lastRow; i++) {
+  
+      // Get all values in the current row
+      var rowValues = sheet.getRange(i + 1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  
+      // Check if the entire row is empty
+      if (rowValues.every(function (value) { return value === ""; })) {
+        break; // Exit the loop if the row is empty
+      }
+  
+      var seoDescription = sheet.getRange('L' + (i + 1)).getValue();
+      var industry = sheet.getRange('J' + (i + 1)).getValue();
+  
+      // Use SEO description if available, otherwise use industry,
+      // or fall back to a generic topic if both are empty
+      var topic = seoDescription
+        ? seoDescription
+        : (industry
+          ? industry
+          : "your business"); // Generic fall back topic
+  
+      // Construct the prompt for the SMS copy with personalization and instruction to NOT include email subject lines or greetings
+      var promptSms = `Generate a concise and engaging SMS copy for a business related to ${topic}.
+                        Start with the opening line directly, without any greetings (like 'Hello' or 'Hi').
+                        The SMS should be written in the tone of a professional trying to set an appointment for a free email marketing audit.
+                        Include an emoji to make it more engaging.
+                        Keep the SMS copy concise, as it will be sent via SMS with limited character count.
+  
+                        DO NOT include any email subject lines or greetings in the SMS copy.`;
+  
+      // Make the API request to OpenAI for the SMS copy
+      var responseSms = UrlFetchApp.fetch('https://api.openai.com/v1/chat/completions', {
+        'method': 'post',
+        'contentType': 'application/json',
+        'headers': {
+          'Authorization': 'Bearer ' + apiKey
+        },
+        'payload': JSON.stringify({
+          'model': 'gpt-3.5-turbo', // Updated to GPT-3.5-Turbo
+          'messages': [{ "role": "user", "content": promptSms }],
+          'max_tokens': 100, // Adjust as needed for the length of the SMS copy
+          'temperature': 0.7
+        })
+      });
+  
+      // Parse the response and get the SMS copy
+      var dataSms = JSON.parse(responseSms.getContentText());
+      var smsCopy = dataSms.choices[0].message.content.trim();
+  
+      // Write the SMS copy to column
+      sheet.getRange(i + 1, 19).setValue(smsCopy);
+    }
+  }
+  // Update the onOpen function to include the new menu item
+  function onOpen() {
+    var ui = SpreadsheetApp.getUi();
+    ui.createMenu('Custom Menu')
+      .addItem('Generate Email Openers', 'generateEmailOpeners')
+      .addItem('Generate Cold Calling Scripts', 'generateColdCallingScripts')
+      .addItem('Generate SMS Copy', 'generateSmsCopy') // Add the new SMS copy menu item
+      .addToUi();
+  }
+
+  //Personalized website scraping and copy starts here
+
+function analyzeWebsiteAndSuggestOutreach() {
+  // Get your OpenAI API key
+   var apiKey = 'YOUR_API_KEY_HERE'; // Replace with your actual API key
+  // Get the active spreadsheet and sheet
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getActiveSheet();
+
+  // Get the last row with content in the sheet
+  var lastRow = sheet.getLastRow();
+
+  // Loop through each row, starting from row 2 (index 1)
+  for (var i = 1; i < lastRow; i++) {
+
+    // Get all values in the current row
+    var rowValues = sheet.getRange(i + 1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+    // Check if the entire row is empty
+    if (rowValues.every(function (value) { return value === ""; })) {
+      break; // Exit the loop if the row is empty
+    }
+
+    var websiteUrl = sheet.getRange('F' + (i + 1)).getValue(); // Website URLs are in column F, starting from F2
+
+    // Scrape the website content using IMPORTXML (adjust XPath as needed)
+    var scrapedContent = '=IMPORTXML("' + websiteUrl + '", "//p")';
+
+    // Construct the prompt for summarizing and analyzing the website
+    var promptSummarize = `Website URL: ${websiteUrl}\n\nScraped Content:\n\n${scrapedContent}\n\nSummarize the website content and create a paragraph about the company that was scraped, and an outline of their services as well as industries they serve. This summarized content will inspire the cold email copy, cold subject line copy, cold calling copy and cold sms copy on other columns so phrase it in a way that gives full context for another prompt to follow.`;
+
+    // Make the API request to OpenAI for summarizing and analyzing the website
+    var responseSummarize = UrlFetchApp.fetch('https://api.openai.com/v1/chat/completions', {
+      'method': 'post',
+      'contentType': 'application/json',
+      'headers': {
+        'Authorization': 'Bearer ' + apiKey
+      },
+      'payload': JSON.stringify({
+        'model': 'gpt-3.5-turbo', // Updated to GPT-3.5-Turbo
+        'messages': [{ "role": "user", "content": promptSummarize }],
+        'max_tokens': 500, // Adjust as needed for the length of the summary and analysis
+        'temperature': 0.7
+      })
+    });
+
+    // Parse the response and get the summary and analysis
+    var dataSummarize = JSON.parse(responseSummarize.getContentText());
+    var summaryAndAnalysis = dataSummarize.choices[0].message.content.trim();
+
+    // Write the summary and analysis to column T
+    sheet.getRange(i + 1, 12).setValue(summaryAndAnalysis);
+  }
+}
+
+// Update the onOpen function to include the new menu item
+function onOpen() {
+  var ui = SpreadsheetApp.getUi();
+  ui.createMenu('Custom Menu')
+    .addItem('1. Analyze Website & Suggest Outreach', 'analyzeWebsiteAndSuggestOutreach')
+    .addItem('2. Generate Email Openers & Subject Lines', 'generateEmailOpeners')
+    .addItem('3. Generate SMS Copy', 'generateSmsCopy')
+    .addItem('4. Generate Cold Calling Scripts', 'generateColdCallingScripts')
+    .addToUi();
+}

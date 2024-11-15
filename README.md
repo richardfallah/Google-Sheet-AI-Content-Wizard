@@ -1,95 +1,108 @@
+# Google Sheet AI Content Wizard Installation Guide  
 
+### Overview  
+Generate personalized email openers, subject lines, SMS, and cold-calling scripts for each of your leads using AI. This guide provides a **basic and free alternative** to platforms like Clay tables, powered by **Google Apps Script** and OpenAI.  
 
+The code and content are sponsored by **[VBOUT](https://www.vbout.com)** and **[Openbuild AI](https://www.openbuild.ai)**, developed by **Richard Fallah**.  
+VBOUT is a leading platform for email marketing, automation, and AI chatbots, offering over 14 marketing tools in one dashboard. For a full demo of VBOUT, visit [https://www.vbout.com/demo](https://www.vbout.com/demo).  
 
+### Resources  
+- 📹 **Video Tutorial:** [Step-by-Step Video Guide](https://youtu.be/mwS_0VLPiH4)  
+- 📝 **Sample Google Sheet:** [Google Sheet Template](https://docs.google.com/spreadsheets/d/1WoV6zwcd1Ov5L4AGICUU9Rz6Xxtua-z-VjlPtKMqcMk/edit?usp=sharing)  
+- 💻 **Github Code Repository:** [Google-Sheet-AI-Content-Wizard](https://github.com/richardfallah/Google-Sheet-AI-Content-Wizard)  
 
+---
 
-Google Sheet AI Content Wizard Installation Guide
+### Prerequisites  
+1. **Google Account:** Access Google Sheets and Apps Script.  
+2. **OpenAI API Key:** Obtain an API key from [OpenAI](https://platform.openai.com/).  
+3. **Prepared Google Sheet:**  
+   - Use the following columns in this exact order:  
+     - Column A: Contact Email  
+     - Column B: Contact Phone  
+     - Column C: First Name  
+     - Column D: Last Name  
+     - Column E: Full Name  
+     - Column F: Website  
+     - Column G: Company Name  
+     - Column H: Seniority  
+     - Column I: Departments  
+     - Column J: Industry  
+     - Column K: Personal LinkedIn URL  
+     - Column L: Website Scraping and AI Personalization 🧠  
+     - Column M: Technologies  
+     - Column N: Annual Revenue  
+     - Column O: Website SEO Title  
+     - Column P: GPT Personalized Email Opener 🧠  
+     - Column Q: GPT Personalized Subject Line 🧠  
+     - Column R: GPT Personalized Call Script 🧠  
+     - Column S: GPT Personalized SMS 🧠  
+     - Column T: GPT Personalized Video 🧠 (Unavailable)  
+     - Column V: GPT Personalized Music 🧠 (Unavailable)  
+     - Column W: Personalized GIF URL  
 
-Generate personalized email openers, subject lines, SMS and cold calling script, for each of your lead, using AI.
-Basic and FREE alternative to Clay tables. 
+---
 
+### Installation Steps  
 
+1. **Choose Your Model:**  
+   Select from the provided script files based on your requirements:  
+   - `gpt-3.5-turbo.js` - Cost-effective.  
+   - `gpt-4-1106-preview.js` - High-performance.  
+   - `gpt-4o-mini.js` - Balanced performance and cost.  
 
+2. **Open Script Editor:**  
+   - In your Google Sheet, go to **Extensions > Apps Script**.  
 
+3. **Copy and Paste the Script:**  
+   - Paste the script content into the Apps Script editor.  
 
+4. **Replace API Key:**  
+   - Replace `YOUR_API_KEY_HERE` with your OpenAI API key.  
 
+5. **Save the Script:**  
+   - Click **File > Save** or press `Ctrl+S`.  
 
+6. **Authorize the Script:**  
+   - Run a function (e.g., `generateEmailOpeners`) to prompt authorization.  
+   - Grant necessary permissions and click **Allow**.  
 
+7. **Refresh Your Sheet:**  
+   - Reload your Google Sheet to activate the custom menu.  
 
+---
 
-The code and content are sponsored by VBOUT and Openbuild AI.
-VBOUT is the industry leading platform for Email Marketing, Automation and AI chatbots. With over 14 marketing tools combined, marketers can generate leads, nurture them using automation and retain relationships with paid customer, all from one dashboard.
-For a comprehensive demo of VBOUT, visit https://www.vbout.com .
+### Usage  
 
-Video Tutorial:
-Sample File (requires APPSCRIPT Installation)
-This guide will walk you through the process of installing and using the provided Google Apps Script to generate email openers, cold calling scripts, SMS copy, and website analysis with outreach suggestions. This enhanced version includes support for different OpenAI models and clarifies column usage.
-Prerequisites
-•	Google Account: You'll need a Google account to access Google Sheets and Apps Script.
-•	OpenAI API Key: Sign up for an OpenAI account at https://platform.openai.com/ and obtain an API key. This key is necessary to access the GPT models.
-•	Google Sheet: Prepare a Google Sheet with the following columns in the exact order (do not alter the column order, add, or remove columns without updating the corresponding values in the script): 
-o	Column A: Contact Email
-o	Column B: Contact Phone
-o	Column C: First Name
-o	Column D: Last Name
-o	Column E: Full Name
-o	Column F: Website
-o	Column G: Company Name
-o	Column H: Seniority
-o	Column I: Departments
-o	Column J: Industry
-o	Column K: Personal Linkedin Url
-o	Column L: Website Scraping and AI Personalization 🧠
-o	Column M: Technologies
-o	Column N: Annual Revenue
-o	Column O: Website SEO Title
-o	Column P: GPT Personalized Email Opener 🧠
-o	Column Q: GPT Personalized Subject Line 🧠
-o	Column R: GPT Personalized Call Script 🧠
-o	Column S: GPT Personalized SMS 🧠
-o	Column T: GPT Personalized Video 🧠 (Unavailable)
-o	Column V: GPT Personalized Music 🧠 (Unavailable)
-o	Column W: Personalized Gif URL
-Installation
-1.	Choose Your Model:
-o	You have 3 script files available, each optimized for a different OpenAI model: 
-	gpt-3.5-turbo.js (most cost-effective)
-	gpt-4-1106-preview.js (most powerful)
-	gpt-4o-mini.js (balance of cost and performance)
-o	Select the script file that corresponds to the model you want to use.
-2.	Open Script Editor:
-o	In your Google Sheet, go to "Extensions" > "Apps Script."
-3.	Copy and Paste the Script:
-o	Copy the entire content of the chosen script file and paste it into the Apps Script editor.
-4.	Replace API Key:
-o	Replace YOUR_API_KEY_HERE with your actual OpenAI API key.
-5.	Save the Script:
-o	Click "File" > "Save" (or Ctrl+S).
-6.	Authorize the Script:
-o	Run any of the functions (e.g., click the "Run" button next to generateEmailOpeners).
-o	A dialog box will appear asking you to authorize the script. Review the permissions and click "Allow."
-7.	Refresh the Sheet:
-o	Go back to your Google Sheet and refresh it.
-Usage
-1.	Access Custom Menu:
-o	You should now see a "Custom Menu" in your Google Sheet's menu bar.
-2.	Generate Content:
-o	Click "Custom Menu" to see the available functions: 
-	Generate Email Openers: Generates email openers and subject lines.
-	Generate Cold Calling Scripts: Generates cold calling scripts.
-	Generate SMS Copy: Generates SMS copy.
-	Analyze Website & Suggest Outreach: Scrapes website content, summarizes it, and suggests outreach strategies.
-3.	Select Function:
-o	Click the function you want to execute. The script will run and populate the corresponding columns in your sheet with the generated content.
-Important Notes
-•	API Usage: Be mindful of your OpenAI API usage and potential costs. Monitor your usage on the OpenAI platform.
-•	Error Handling: The script does not include extensive error handling. Consider adding try...catch blocks to handle potential errors during API calls or web scraping.
-•	Adjust max_tokens: Modify the max_tokens parameter in each function to control the length of the generated content.
-•	Customize Prompts: Feel free to adjust the prompts in each function to better suit your specific needs and preferences.
-•	Website Scraping: The analyzeWebsiteAndSuggestOutreach function uses IMPORTXML to scrape website content. You might need to adjust the XPath expression (//p) based on the website structure.
-•	Column Order: Do not alter the column order, add, or remove columns in the sheet without updating the corresponding column indexes in the script. For example, if you move "Website URL" to column G, you need to change 'F' + (i + 1) to 'G' + (i + 1) in the analyzeWebsiteAndSuggestOutreach function.
-This comprehensive guide should help you effectively install and utilize the script for generating sales content and analyzing websites.
+1. **Access Custom Menu:**  
+   - Locate the new **Custom Menu** in your Google Sheet.  
 
-You have full license to use the script on your own Google Sheets accounts, for personal or commercial use. The finished code is proprietary of VBOUT and any distribution must be credited back to the original author.
+2. **Generate Content:**  
+   - Use the menu to run functions like:  
+     - **Generate Email Openers**  
+     - **Generate Cold Calling Scripts**  
+     - **Generate SMS Copy**  
+     - **Analyze Website & Suggest Outreach**  
 
+3. **Execute Functions:**  
+   - The script will populate corresponding columns with generated content.  
 
+---
+
+### Important Notes  
+
+- **API Costs:** Monitor your API usage and costs via OpenAI.  
+- **Error Handling:** Add `try...catch` blocks for error handling if needed.  
+- **Token Limits:** Adjust `max_tokens` in the script to control content length.  
+- **Customize Prompts:** Modify prompts to suit your needs.  
+- **Website Scraping:** Update the `IMPORTXML` XPath if the website structure changes.  
+- **Column Order:** Maintain the column structure or update the script accordingly.  
+
+---
+
+### License  
+You are free to use the script for personal or commercial purposes on your Google Sheets accounts. The finished code is proprietary to VBOUT, and credit must be attributed to the original author for any distribution.  
+
+---  
+
+For questions or support, feel free to reach out or explore the [Github repository](https://github.com/richardfallah/Google-Sheet-AI-Content-Wizard).
